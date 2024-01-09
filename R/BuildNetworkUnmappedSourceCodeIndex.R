@@ -53,13 +53,13 @@ buildNetworkUnmappedSourceCodeIndex <-
         writeLines(paste("AresIndexIngore file present, skipping source folder: ", sourceFolder))
       }else
       {
-        # skip for releases where ignore file present
-        releaseFolders<- releaseFolders[!releaseFolders %in% AresIndexer::getIgnoredReleases(sourceFolder)]
-        
         # find the latest release in the source folder
         releaseFolders <- list.dirs(sourceFolder, recursive = F)
         releaseFolders <- sort(releaseFolders, decreasing = T)
-        
+
+        # skip for releases where ignore file present
+        releaseFolders<- releaseFolders[!releaseFolders %in% AresIndexer::getIgnoredReleases(sourceFolder)]
+
         if (length(releaseFolders) > 0) {
           latestReleaseFolder <- releaseFolders[1]
           completenessFile <-
